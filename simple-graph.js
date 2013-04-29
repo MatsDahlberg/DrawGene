@@ -188,9 +188,11 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 
 	function update() {
 	    var self = this;
+	    /*
 	    vis.select("path")
 		.attr("stroke", "grey")
 		.attr("d", line1(points));
+	    */
 	    var variantLine = vis.select("svg").selectAll(".variantLine1")
 		.data(jsonVariants, function(d) {return d;});
 	    variantLine.enter()
