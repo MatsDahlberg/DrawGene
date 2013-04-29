@@ -43,7 +43,7 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 
 	// drag x-axis logic
 	downx = Math.NaN;
-	
+
 	// y-scale (inverted domain)
 	y = d3.scale.linear()
 	    .domain([options.ymax, options.ymin])
