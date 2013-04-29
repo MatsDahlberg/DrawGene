@@ -12,9 +12,9 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 	gene_end = gene_end + gap;
 	var self = this;
 	var exonHeight = 14;
-	var geneY = 250;
+	var geneY = 50;
+	var cy = 200;
 	var cx = 1000;
-	var cy = 400;
 	var topExpressionY = 50;
 	var botExpressionY = 200;
 	chart = document.getElementById(elemid);
@@ -51,18 +51,10 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 	    .range([0, size.height])
 	    .nice();
 
-	line1 = d3.svg.line()
-	    .x(function(d, i) { return x(points[i].x); })
-	    .y(function(d, i) { return y(points[i].y); })
-	    .interpolate("step-after");
 	var xrange =  (gene_end - gene_start),
 	yrange2 = (options.ymax - options.ymin) / 2,
 	yrange4 = yrange2 / 1.5,
 	datacount = size.width/30;
-
-	var points = d3.range(datacount).map(function(i) {
-	    return { x: (i * xrange / datacount)+data3.gene_start, y: options.ymin + yrange4 + Math.random() * yrange2 };
-	}, self);
 
 	vis = d3.select(chart).append("svg:svg")
 	    .attr("width",  cx)
@@ -84,10 +76,6 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 	    .attr("width", size.width)
 	    .attr("height", size.height)
 	    .attr("viewBox", "0 0 "+size.width+" "+size.height)
-	    .attr("class", "line")
-	    .append("path")
-            .attr("class", "line")
-            .attr("d", line1(points));
 
 	var geneLine = vis.select("svg")
 	    .append("line")
@@ -98,25 +86,6 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 	    .attr("x2", size.width)
 	    .attr("y2",geneY)
 	    .style("stroke", "green");
-
-	var topExpression = vis.select("svg")
-	    .append("line")
-	    .attr("stroke-width", 1)
-            .attr("stroke", "grey")
-	    .attr("x1", 0)
-	    .attr("y1", topExpressionY)
-	    .attr("x2", size.width)
-	    .attr("y2",topExpressionY)
-	    .style("stroke", "grey");
-	var botExpression = vis.select("svg")
-	    .append("line")
-	    .attr("stroke-width", 1)
-            .attr("stroke", "grey")
-	    .attr("x1", 0)
-	    .attr("y1", botExpressionY)
-	    .attr("x2", size.width)
-	    .attr("y2", botExpressionY)
-	    .style("stroke", "grey");
 
 	var exons = data3.exons;
 	var jsonRectangles = []
@@ -188,11 +157,6 @@ SimpleGraph = function(url, elemid, options, tableDiv) {
 
 	function update() {
 	    var self = this;
-	    /*
-	    vis.select("path")
-		.attr("stroke", "grey")
-		.attr("d", line1(points));
-	    */
 	    var variantLine = vis.select("svg").selectAll(".variantLine1")
 		.data(jsonVariants, function(d) {return d;});
 	    variantLine.enter()
