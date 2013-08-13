@@ -7,6 +7,7 @@ graph = new SimpleGraph(sUrl, "chart1")
 The second argument is a <div> in the HTML document where the graph will be placed.
 The first argument is an URL to a web-service that returns a JSON in the followin format:
 
+```
 {
     "bp_end": 133446983, 
     "bp_start": 133320316, 
@@ -224,3 +225,4 @@ The first argument is an URL to a web-service that returns a JSON in the followi
         ]
     ]
 }
+```
